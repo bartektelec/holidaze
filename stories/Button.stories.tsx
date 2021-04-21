@@ -7,15 +7,29 @@ export default {
   title: 'Common/Button',
   component: Button,
   argTypes: {
+    secondary: {
+      control: {
+        type: 'boolean',
+      }
+    },
+    lg: {
+      control: {
+        type: 'boolean',
+      }
+    },
+    disabled: {
+      control: {
+        type: 'boolean',
+      }
+    }
   },
 } as Meta;
 
-const Template: Story = (args) => <Button {...args} >Sample text</Button>;
+const Template: Story = (args) => <Button {...args} >Register</Button>;
 
 export const Default = Template.bind({});
 Default.args = {
-};
-export const Secondary = Template.bind({});
-Secondary.args = {
-  secondary: true
+  secondary: false,
+  lg: false,
+  disabled: false
 };
