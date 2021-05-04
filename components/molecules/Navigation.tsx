@@ -9,7 +9,7 @@ export interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ dark, className = '' }) => {
 	const classes = [className, 'p-4'];
-	if (dark) classes.push('bg-gray-100');
+	if (dark) classes.push('bg-blue-50');
 
 	return (
 		<nav className={classes.join(' ')}>

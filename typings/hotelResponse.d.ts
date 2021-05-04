@@ -43,7 +43,18 @@ interface IResponseImage {
 	updated_at: string;
 }
 
-interface IResponseBooking {}
+interface IResponseBooking {
+	id: number;
+	arrival: Date;
+	departure: Date;
+	information: string;
+	hotel: number;
+	customer: string;
+	phone: string;
+	confirmed: boolean;
+	created_at: Datetime;
+	updated_at: Datetime;
+}
 
 interface IResponseHotel {
 	id: number;

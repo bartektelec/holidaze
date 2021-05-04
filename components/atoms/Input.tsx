@@ -4,11 +4,13 @@ export interface ButtonProps {
 	value?: string;
 	placeholder?: string;
 	onChange?: React.ChangeEventHandler<HTMLInputElement>;
+	onClick?: React.MouseEventHandler<HTMLDivElement>;
 	className?: string;
 	lg?: boolean;
 	IconComponent?: React.FC<IIconProps>;
 	disabled?: boolean;
-	type?: 'text' | 'number' | 'phone' | 'email' | 'password' | 'search';
+	readOnly?: boolean;
+	type?: 'text' | 'number' | 'phone' | 'email' | 'date' | 'password' | 'search';
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -16,6 +18,7 @@ const Button: React.FC<ButtonProps> = ({
 	className = '',
 	lg,
 	IconComponent,
+	onClick,
 	...props
 }) => {
 	const inputRef = React.useRef<HTMLInputElement>(null);
@@ -27,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
 	cn += lg ? 'px-8 ' : '';
 	cn += className;
 	return (
-		<div className={cn}>
+		<div className={cn} onClick={onClick}>
 			{IconComponent && <IconComponent width={24} height={24} fill="#4A5568" />}
 			<input
 				ref={inputRef}

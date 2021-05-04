@@ -1,12 +1,11 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 
-import Card from '../components/molecules/Card';
-import hotels from './mocks/hotellist';
+import Searchbar from '../components/organisms/Searchbar';
 
 export default {
-	title: 'Card',
-	component: Card,
+	title: 'Searchbar',
+	component: Searchbar,
 	argTypes: {
 		editable: {
 			control: {
@@ -18,7 +17,7 @@ export default {
 
 const Template: Story = (args) => (
 	<div className="min-h-screen">
-		<Card hotel={hotels[0]} {...args} />
+		<Searchbar {...args} />
 	</div>
 );
 

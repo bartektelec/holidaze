@@ -20,11 +20,11 @@ const Card: React.FC<CardProps> = ({ hotel, editable }) => {
 
 	return (
 		<div className="inline-flex flex-col p-4 rounded-md hover:bg-gray-100 hover:shadow-sm">
-			<Link href={`/details/${hotel.id}`}>
+			<Link href={`/place/${hotel.id}`}>
 				<a className="flex-col gap-1 inline-flex  hover:text-blue-800">
 					<div className="relative">
 						<img
-							className="w-48 h-48 filter contrast-75 object-cover rounded-md border-2 border-gray-300"
+							className="h-48 w-full filter contrast-75 object-cover rounded-md border-2 border-gray-300"
 							src={hotel.images[imgIdx].formats.thumbnail.url}
 							alt={hotel.images[imgIdx].alternativeText}
 						/>
@@ -33,17 +33,19 @@ const Card: React.FC<CardProps> = ({ hotel, editable }) => {
 							<p className="text-sm">{hotel.rating}</p>
 						</div>
 						<div className="flex w-full gap-2 justify-center absolute bottom-3">
-							{hotel.images.map((_, idx) => {
-								let dotClass =
-									'h-3 w-3 rounded-full border-2 border-white hover:bg-gray-100';
-								if (idx === imgIdx) dotClass += ' bg-white';
-								return (
-									<div
-										onMouseOver={() => setImgIdx(idx)}
-										className={dotClass}
-									></div>
-								);
-							})}
+							{hotel.images.length > 1 &&
+								hotel.images.map((image, idx) => {
+									let dotClass =
+										'h-3 w-3 rounded-full border-2 border-white hover:bg-gray-100';
+									if (idx === imgIdx) dotClass += ' bg-white';
+									return (
+										<div
+											key={image.id}
+											onMouseOver={() => setImgIdx(idx)}
+											className={dotClass}
+										></div>
+									);
+								})}
 						</div>
 					</div>
 					<p className="capitalize text-xs">

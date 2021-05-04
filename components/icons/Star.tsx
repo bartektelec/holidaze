@@ -13,9 +13,9 @@ const Icon: React.FC<IIconProps> = ({ ...props }) => {
 			<path
 				d="M7.99998 1.33337L10.06 5.50671L14.6666 6.18004L11.3333 9.42671L12.12 14.0134L7.99998 11.8467L3.87998 14.0134L4.66665 9.42671L1.33331 6.18004L5.93998 5.50671L7.99998 1.33337Z"
 				stroke="#4A5568"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
+				strokeWidth="2"
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			/>
 		</svg>
 	);
