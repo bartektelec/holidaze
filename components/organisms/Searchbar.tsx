@@ -58,6 +58,8 @@ const Searchbar: React.FC<SearchbarProps> = ({ className = '' }) => {
 				</Link>
 
 				<Input
+					id="ExpandSearch"
+					label="Search"
 					className="w-1/2 ml-8 mr-2"
 					IconComponent={Magnifier}
 					value={inputValue}

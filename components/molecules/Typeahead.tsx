@@ -34,6 +34,8 @@ const Typeahead: React.FC<TypeaheadProps<any>> = ({
 	return (
 		<div className={`flex-inline flex-col relative ${className}`}>
 			<Input
+				id="hotelSearch"
+				label="Hotel name"
 				className={className}
 				type="search"
 				value={query}

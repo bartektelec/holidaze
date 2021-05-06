@@ -49,6 +49,8 @@ const Searchform: React.FC<SearchformProps> = () => {
 		<>
 			<div className="flex w-full gap-4">
 				<Input
+					id="LocationSearch"
+					label="Location"
 					IconComponent={Pin}
 					value={location}
 					onChange={(e) => setLocation(e.currentTarget.value)}
@@ -63,6 +65,8 @@ const Searchform: React.FC<SearchformProps> = () => {
 					className="w-full "
 					placeholder="Guests"
 					type="number"
+					id="GuestsInput"
+					label="Guests"
 				/>
 			</div>
 			<div className="flex w-full">
@@ -73,6 +77,8 @@ const Searchform: React.FC<SearchformProps> = () => {
 					placeholder="Date"
 					type="date"
 					className="w-full "
+					id="DateSearch"
+					label="Date"
 				/>
 			</div>
 			<Link href={`/search?date=${date}&location=${location}&guests=${guests}`}>

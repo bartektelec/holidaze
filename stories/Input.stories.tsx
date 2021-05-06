@@ -8,6 +8,11 @@ export default {
 	title: 'Input',
 	component: Input,
 	argTypes: {
+		label: {
+			control: {
+				type: 'text',
+			},
+		},
 		lg: {
 			control: {
 				type: 'boolean',
@@ -21,10 +26,11 @@ export default {
 	},
 } as Meta;
 
-const Template: Story = (args) => <Input {...args} />;
+const Template: Story = (args) => <Input id="test" {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
+	label: 'Label text',
 	placeholder: 'First name',
 	defaultValue: 'John Doe',
 	lg: false,
@@ -32,6 +38,7 @@ Default.args = {
 };
 export const WithIcon = Template.bind({});
 WithIcon.args = {
+	label: 'Label text',
 	IconComponent: PinIcon,
 	placeholder: 'First name',
 	defaultValue: 'John Doe',

@@ -19,6 +19,25 @@ export interface HotelDetailsProps {
 const HotelDetails: React.FC<HotelDetailsProps> = ({ hotel }) => {
 	const [currentImage, setCurrentImage] = React.useState<number>(0);
 	const [nights, setNights] = React.useState<number>(0);
+	const [arrive, setArrive] = React.useState<string>(
+		new Date().toJSON().split('T')[0]
+	);
+	const [departure, setDeparture] = React.useState<string>(
+		new Date().toJSON().split('T')[0]
+	);
+
+	React.useEffect(() => {
+		if (!arrive || !departure) return;
+		const a = new Date(arrive);
+		const b = new Date(departure);
+		if (b < a) return;
+
+		const timeDiff = b.getTime() - a.getTime();
+
+		const msInDay = 1000 * 60 * 60 * 24;
+		const daysDiff = timeDiff / msInDay;
+		setNights(daysDiff);
+	}, [arrive, departure]);
 	return (
 		<div className="py-8 flex flex-col gap-8">
 			<Link href="/">
@@ -43,6 +62,7 @@ const HotelDetails: React.FC<HotelDetailsProps> = ({ hotel }) => {
 						{hotel.images.length > 1 &&
 							hotel.images.map((image, idx) => (
 								<img
+									key={image.id}
 									className="cursor-pointer rounded-md shadow-sm opacity-50 hover:opacity-100"
 									onClick={() => setCurrentImage(idx)}
 									src={image.formats.thumbnail.url}
@@ -74,10 +94,38 @@ const HotelDetails: React.FC<HotelDetailsProps> = ({ hotel }) => {
 					</p>
 					<form className="flex flex-col gap-4">
 						<div className="flex flex-wrap gap-4">
-							<Input className="flex-1 " type="date" IconComponent={Calendar} />
-							<Input className="flex-1 " type="number" IconComponent={Person} />
+							<Input
+								id="ArrivalDate"
+								label="Arrival"
+								className="flex-1 "
+								type="date"
+								IconComponent={Calendar}
+								value={arrive}
+								onChange={(e) => setArrive(e.currentTarget.value)}
+							/>
+							<Input
+								id="DepartureDate"
+								label="Departure"
+								className="flex-1 "
+								type="date"
+								IconComponent={Calendar}
+								value={departure}
+								onChange={(e) => setDeparture(e.currentTarget.value)}
+							/>
+							<Input
+								min="1"
+								max={hotel.adults + hotel.children}
+								id="GuestsInput"
+								label="Guests"
+								className="flex-1 "
+								type="number"
+								IconComponent={Person}
+								defaultValue={0}
+							/>
 						</div>
-						<Button className="justify-center">Book</Button>
+						<Button disabled={!nights} className="justify-center">
+							Book
+						</Button>
 					</form>
 					<div className="rounded-md border-2 border-gray-400 bg-gray-100 py-6 px-12">
 						<div className="flex-1 flex items-center justify-between">
