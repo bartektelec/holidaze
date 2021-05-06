@@ -17,10 +17,10 @@ interface IResponseThumbnailSize {
 }
 
 interface IResponseImageFormat {
-	thumbnail: IThumbnailSize;
-	large: IThumbnailSize;
-	medium: IThumbnailSize;
-	small: IThumbnailSize;
+	thumbnail: IResponseThumbnailSize;
+	large: IResponseThumbnailSize;
+	medium: IResponseThumbnailSize;
+	small: IResponseThumbnailSize;
 }
 
 interface IResponseImage {
@@ -30,7 +30,7 @@ interface IResponseImage {
 	caption: string;
 	width: number;
 	height: number;
-	formats: IImageFormat;
+	formats: IResponseImageFormat;
 	hash: string;
 	ext: string;
 	mime: string;

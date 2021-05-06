@@ -3,7 +3,6 @@ import Button from '../components/atoms/Button';
 import Filter from '../components/icons/Filter';
 import Sort from '../components/icons/Sort';
 import Navigation from '../components/molecules/Navigation';
-import HotelDetails from '../components/templates/HotelDetails';
 import Searchbar from '../components/organisms/Searchbar';
 import Card from '../components/molecules/Card';
 
