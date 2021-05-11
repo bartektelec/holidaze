@@ -18,7 +18,9 @@ const Searchbar: React.FC<SearchbarProps> = ({ className = '' }) => {
 	const [extended, setExtended] = React.useState<boolean>(false);
 	React.useEffect(() => {
 		const setIninitialInput = () => {
+			if (!router?.query) return;
 			const { location, date, guests } = router.query;
+
 			let [l, d, g] = [location, date, guests].map((x) => {
 				if (!x) return '';
 				return typeof x === 'string' ? x : x.join();

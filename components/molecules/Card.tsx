@@ -22,9 +22,9 @@ const Card: React.FC<CardProps> = ({ hotel, editable }) => {
 		<div className="inline-flex flex-col p-4 rounded-md hover:bg-gray-100 hover:shadow-sm">
 			<Link href={`/place/${hotel.id}`}>
 				<a className="flex-col gap-1 inline-flex  hover:text-blue-800">
-					<div className="relative">
+					<div className="relative ">
 						<img
-							className="min-w-48 h-48 filter contrast-75 object-cover rounded-md border-2 border-gray-300"
+							className="min-w-48 w-full h-48 filter contrast-75 object-cover rounded-md border-2 border-gray-300"
 							src={hotel.images[imgIdx].formats.thumbnail.url}
 							alt={hotel.images[imgIdx].alternativeText}
 						/>

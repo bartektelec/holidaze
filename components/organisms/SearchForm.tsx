@@ -67,6 +67,7 @@ const Searchform: React.FC<SearchformProps> = () => {
 					type="number"
 					id="GuestsInput"
 					label="Guests"
+					min={0}
 				/>
 			</div>
 			<div className="flex w-full">

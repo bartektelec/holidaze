@@ -39,7 +39,7 @@ const HotelDetails: React.FC<HotelDetailsProps> = ({ hotel }) => {
 		setNights(daysDiff);
 	}, [arrive, departure]);
 	return (
-		<div className="py-8 flex flex-col gap-8">
+		<div className="py-8 px-4 sm:px-0 flex flex-col gap-8">
 			<Link href="/">
 				<a className="flex gap-2 text-lg font-bold items-center">
 					<ArrowCircle width={24} height={24} />
@@ -51,19 +51,19 @@ const HotelDetails: React.FC<HotelDetailsProps> = ({ hotel }) => {
 				{hotel.rating}
 			</div>
 			<h1 className="text-3xl font-bold">{hotel.name}</h1>
-			<div className="grid grid-cols-2 gap-32">
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-32">
 				<div className="flex flex-col gap-8">
 					<img
 						className="rounded-md shadow-lg"
 						src={hotel.images[currentImage].url}
 						alt={hotel.images[currentImage].alternativeText}
 					/>
-					<div className="flex flex-wrap gap-4">
+					<div className="flex flex-wrap gap-4 w-full">
 						{hotel.images.length > 1 &&
 							hotel.images.map((image, idx) => (
 								<img
 									key={image.id}
-									className="cursor-pointer rounded-md shadow-sm opacity-50 hover:opacity-100"
+									className="cursor-pointer rounded-md shadow-sm opacity-50 hover:opacity-100 w-32"
 									onClick={() => setCurrentImage(idx)}
 									src={image.formats.thumbnail.url}
 									alt={image.alternativeText}

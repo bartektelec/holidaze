@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { useRouter } from 'next/router';
+import Footer from '../molecules/Footer';
 import Navigation from '../molecules/Navigation';
 import SearchForm from '../organisms/SearchForm';
 
 export interface MainProps {}
 
-const Main: React.FC<MainProps> = () => {
+const Main: React.FC<MainProps> = ({ children }) => {
 	return (
-		<>
+		<div className="min-h-screen flex flex-col">
 			<header
 				className="bg-cover bg-center"
 				style={{ backgroundImage: 'url(./assets/background.png)' }}
@@ -27,7 +27,9 @@ const Main: React.FC<MainProps> = () => {
 					</div>
 				</div>
 			</header>
-		</>
+			<main className="container mx-auto flex-1">{children}</main>
+			<Footer />
+		</div>
 	);
 };
 

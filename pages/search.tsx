@@ -2,6 +2,7 @@ import * as React from 'react';
 import Button from '../components/atoms/Button';
 import Filter from '../components/icons/Filter';
 import Sort from '../components/icons/Sort';
+import Footer from '../components/molecules/Footer';
 import Navigation from '../components/molecules/Navigation';
 import Searchbar from '../components/organisms/Searchbar';
 import Card from '../components/molecules/Card';
@@ -33,7 +34,7 @@ const Search: React.FC<SearchProps> = ({ hotels }) => {
 			</nav>
 			<main className="container mx-auto flex-1 flex flex-col">
 				<div className="flex-1">
-					<div className="grid grid-flow-row-dense grid-cols-1 sm:grid-cols-2 grid-rows-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-start gap-8 py-8">
+					<div className="grid grid-flow-row-dense grid-cols-1 sm:grid-cols-2 grid-rows-auto md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-start gap-8 py-8">
 						{hotels.map((hotel) => {
 							return <Card key={hotel.id} hotel={hotel} />;
 						})}
@@ -43,6 +44,7 @@ const Search: React.FC<SearchProps> = ({ hotels }) => {
 					Showing 1-{hotels.length} results of total {hotels.length}
 				</div>
 			</main>
+			<Footer />
 		</div>
 	);
 };

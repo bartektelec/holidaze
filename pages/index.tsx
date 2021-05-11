@@ -8,7 +8,9 @@ export default function Home() {
 				<title>Holidaze</title>
 			</Head>
 			<div>
-				<Main />
+				<Main>
+					<div />
+				</Main>
 			</div>
 		</>
 	);
