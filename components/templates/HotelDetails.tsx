@@ -11,13 +11,18 @@ import Calendar from '../icons/Calendar';
 import Person from '../icons/Person';
 import Input from '../atoms/Input';
 import Button from '../atoms/Button';
+import request from '../../services/api';
 
 export interface HotelDetailsProps {
 	hotel: IResponseHotel;
 }
 
 const HotelDetails: React.FC<HotelDetailsProps> = ({ hotel }) => {
+	const [msg, setMsg] = React.useState<string>('');
 	const [currentImage, setCurrentImage] = React.useState<number>(0);
+	const [customer, setCustomer] = React.useState<string>('');
+	const [information, setInformation] = React.useState<string>('');
+	const [phoneNo, setPhoneNo] = React.useState<string>('');
 	const [nights, setNights] = React.useState<number>(0);
 	const [arrive, setArrive] = React.useState<string>(
 		new Date().toJSON().split('T')[0]
@@ -26,11 +31,42 @@ const HotelDetails: React.FC<HotelDetailsProps> = ({ hotel }) => {
 		new Date().toJSON().split('T')[0]
 	);
 
+	const handleSubmitBooking = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const processForm = async () => {
+			try {
+				await request.post('/bookings/', {
+					arrival: arrive,
+					departure,
+					confirmed: true,
+					phone: phoneNo,
+					customer,
+					information,
+					hotel: hotel.id,
+				});
+				[
+					setCustomer,
+					setArrive,
+					setDeparture,
+					setPhoneNo,
+					setInformation,
+				].forEach((func) => {
+					func('');
+				});
+				setMsg(`<span class='text-green-500'>Booked successfully</span>`);
+			} catch (error) {
+				setMsg(`<span class='text-red-500'>${error}</span>`);
+				console.warn(error);
+			}
+		};
+		processForm();
+	};
+
 	React.useEffect(() => {
 		if (!arrive || !departure) return;
 		const a = new Date(arrive);
 		const b = new Date(departure);
-		if (b < a) return;
+		if (b < a) return setNights(0);
 
 		const timeDiff = b.getTime() - a.getTime();
 
@@ -92,13 +128,14 @@ const HotelDetails: React.FC<HotelDetailsProps> = ({ hotel }) => {
 					<p className="flex gap-2 items-center">
 						<Time width={24} height={24} /> Check-in: 14:00, check-out: 10:00
 					</p>
-					<form className="flex flex-col gap-4">
+					<form onSubmit={handleSubmitBooking} className="flex flex-col gap-4">
 						<div className="flex flex-wrap gap-4">
 							<Input
 								id="ArrivalDate"
 								label="Arrival"
 								className="flex-1 "
 								type="date"
+								required
 								IconComponent={Calendar}
 								value={arrive}
 								onChange={(e) => setArrive(e.currentTarget.value)}
@@ -110,6 +147,7 @@ const HotelDetails: React.FC<HotelDetailsProps> = ({ hotel }) => {
 								type="date"
 								IconComponent={Calendar}
 								value={departure}
+								required
 								onChange={(e) => setDeparture(e.currentTarget.value)}
 							/>
 							<Input
@@ -120,10 +158,41 @@ const HotelDetails: React.FC<HotelDetailsProps> = ({ hotel }) => {
 								className="flex-1 "
 								type="number"
 								IconComponent={Person}
-								defaultValue={0}
+								defaultValue={1}
 							/>
+							<div className="grid gap-4 w-full">
+								<Input
+									id="customerName"
+									label="Customer name"
+									className=""
+									value={customer}
+									required
+									onChange={(e) => setCustomer(e.currentTarget.value)}
+								/>
+								<Input
+									id="customerPhone"
+									label="Phone number"
+									className=""
+									type="tel"
+									required
+									value={phoneNo}
+									onChange={(e) => setPhoneNo(e.currentTarget.value)}
+								/>
+								<Input
+									id="infoText"
+									label="Additional information"
+									className=""
+									type="text"
+									value={information}
+									onChange={(e) => setInformation(e.currentTarget.value)}
+								/>
+							</div>
 						</div>
-						<Button disabled={!nights} className="justify-center">
+						<div dangerouslySetInnerHTML={{ __html: msg }} />
+						<Button
+							disabled={!nights || !customer || !phoneNo}
+							className="justify-center"
+						>
 							Book
 						</Button>
 					</form>
@@ -145,7 +214,7 @@ const HotelDetails: React.FC<HotelDetailsProps> = ({ hotel }) => {
 						<div className="bg-gray-400 h-px my-4" />
 						<div className="font-bold flex-1 flex items-center justify-between">
 							<p>Total</p>
-							<p>NOK {69.98 + hotel.price * nights}</p>
+							<p>NOK {(69.98 + hotel.price * nights).toFixed(2)}</p>
 						</div>
 					</div>
 				</div>

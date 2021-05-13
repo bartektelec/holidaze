@@ -2,6 +2,7 @@ import * as React from 'react';
 import Template from '../../components/templates/Default';
 import HotelDetails from '../../components/templates/HotelDetails';
 import Searchbar from '../../components/organisms/Searchbar';
+import request from '../../services/api';
 
 export interface PlaceProps {
 	hotel: IResponseHotel;
@@ -17,10 +18,8 @@ const Place: React.FC<PlaceProps> = ({ hotel }) => {
 
 export async function getServerSideProps(context) {
 	try {
-		const response = await fetch(
-			'https://holidaze-bt.herokuapp.com/hotels/' + context.params.id
-		);
-		const hotel = await response.json();
+		const response = await request('hotels/' + context.params.id);
+		const hotel = await response.data;
 		return {
 			props: {
 				hotel,

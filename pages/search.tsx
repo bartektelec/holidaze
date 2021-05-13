@@ -6,6 +6,7 @@ import Footer from '../components/molecules/Footer';
 import Navigation from '../components/molecules/Navigation';
 import Searchbar from '../components/organisms/Searchbar';
 import Card from '../components/molecules/Card';
+import request from '../services/api';
 
 export interface SearchProps {
 	hotels: IResponseHotel[];
@@ -54,8 +55,8 @@ export async function getServerSideProps(context: {
 }) {
 	const { location, guests, date } = context.query;
 	try {
-		const response = await fetch('https://holidaze-bt.herokuapp.com/hotels/');
-		const hotels: IResponseHotel[] = await response.json();
+		const response = await request('hotels/');
+		const hotels: IResponseHotel[] = await response.data;
 		const guestFiltered = hotels.filter((x) => {
 			if (!guests) return true;
 			return x.adults >= Number(guests);

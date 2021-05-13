@@ -8,6 +8,7 @@ import Typeahead from '../molecules/Typeahead';
 import Pin from '../icons/Pin';
 import Person from '../icons/Person';
 import Calendar from '../icons/Calendar';
+import request from '../../services/api';
 
 export interface SearchformProps {}
 
@@ -21,10 +22,8 @@ const Searchform: React.FC<SearchformProps> = () => {
 	React.useEffect(() => {
 		const getHotels = async () => {
 			try {
-				const response = await fetch(
-					'https://holidaze-bt.herokuapp.com/hotels/'
-				);
-				const data = await response.json();
+				const response = await request.get('hotels/');
+				const { data } = await response;
 				setHotels(data);
 			} catch (error) {
 				console.warn('Couldnt fetch hotels');

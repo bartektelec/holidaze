@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export interface ButtonProps
+export interface InputProps
 	extends React.InputHTMLAttributes<HTMLInputElement> {
 	id: string;
 	label: string;
@@ -13,10 +13,9 @@ export interface ButtonProps
 	IconComponent?: React.FC<IIconProps>;
 	disabled?: boolean;
 	readOnly?: boolean;
-	type?: 'text' | 'number' | 'phone' | 'email' | 'date' | 'password' | 'search';
 }
 
-const Button: React.FC<ButtonProps> = ({
+const Input: React.FC<InputProps> = ({
 	children,
 	className = '',
 	lg,
@@ -42,6 +41,11 @@ const Button: React.FC<ButtonProps> = ({
 			{IconComponent && <IconComponent width={24} height={24} fill="#4A5568" />}
 			<label className={labelCn} htmlFor={id}>
 				{label}
+				{props.required && (
+					<span className="text-md text-red-500 ml-2">
+						*<span className="sr-only">Required field</span>
+					</span>
+				)}
 			</label>
 			<input
 				id={id}
@@ -53,4 +57,4 @@ const Button: React.FC<ButtonProps> = ({
 	);
 };
 
-export default Button;
+export default Input;

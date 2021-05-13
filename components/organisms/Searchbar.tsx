@@ -29,9 +29,11 @@ const Searchbar: React.FC<SearchbarProps> = ({ className = '' }) => {
 			l = l.trim().replace(/^\w/, (c) => c.toUpperCase());
 			d = d ? new Date(d).toDateString() : null;
 			let tmp = '';
-			if (l) tmp += `${l} `;
-			if (d) tmp += `- ${d} `;
-			if (g) tmp += `- ${g} guests`;
+			if (l) tmp += l;
+			if (tmp && d) tmp += ' - ';
+			if (d) tmp += d;
+			if (tmp && g) tmp += ' - ';
+			if (g) tmp += `${g} guests`;
 
 			setInputValue(tmp);
 			setExtended(false);
