@@ -10,7 +10,7 @@ const Default: React.FC<DefaultProps> = ({ children }) => {
 			<header>
 				<Navigation dark />
 			</header>
-			<main className="container mx-auto flex-1">{children}</main>
+			<main className="container mx-auto p-4 flex-1">{children}</main>
 			<Footer />
 		</div>
 	);

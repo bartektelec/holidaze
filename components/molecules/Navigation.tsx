@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Link from 'next/link';
 import Logo from '../atoms/Logo';
 import Button from '../atoms/Button';
 
@@ -17,7 +18,11 @@ const Navigation: React.FC<NavigationProps> = ({ dark, className = '' }) => {
 				<Logo dark={dark} />
 				<div className="flex gap-4 items-center">
 					<Button secondary>Register</Button>
-					<Button>Sign in</Button>
+					<Link href="/dashboard">
+						<a>
+							<Button>Sign in</Button>
+						</a>
+					</Link>
 				</div>
 			</div>
 		</nav>
