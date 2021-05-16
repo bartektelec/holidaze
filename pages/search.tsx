@@ -55,13 +55,12 @@ export async function getServerSideProps(context: {
 }) {
 	const { location, guests, date } = context.query;
 	try {
-		const response = await request('hotels/');
+		const query = new URLSearchParams();
+		if(location) query.set('address_contains', location);
+		if(guests) query.set('adults_gte', guests);
+		const response = await request('hotels?'+query.toString());
 		const hotels: IResponseHotel[] = await response.data;
-		const guestFiltered = hotels.filter((x) => {
-			if (!guests) return true;
-			return x.adults >= Number(guests);
-		});
-		const bookingsFiltered = guestFiltered.filter((x) => {
+		const filtered = hotels.filter((x) => {
 			if (!date) return true;
 			return x.bookings.every(
 				(booking) =>
@@ -70,13 +69,9 @@ export async function getServerSideProps(context: {
 			);
 		});
 
-		const locationFiltered = bookingsFiltered.filter((x) => {
-			if (!location) return true;
-			return x.address.match(new RegExp(location, 'gi'));
-		});
 		return {
 			props: {
-				hotels: locationFiltered,
+				hotels: filtered,
 			},
 		};
 	} catch (error) {
