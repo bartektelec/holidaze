@@ -2,9 +2,10 @@ import * as React from 'react';
 import { useRouter } from 'next/router';
 
 export interface AdminProps {
+	handleToken?: (v: string) => void;
 }
 
-const Admin: React.FC<AdminProps> = ({children}) => {
+const Admin: React.FC<AdminProps> = ({ children, handleToken }) => {
 	const router = useRouter();
 	const [token, setToken] = React.useState<string>();
 	React.useEffect(() => {
@@ -13,14 +14,16 @@ const Admin: React.FC<AdminProps> = ({children}) => {
 			router.push('/dashboard/login');
 		}
 		setToken(foundToken);
+		if (handleToken) {
+			handleToken(foundToken);
+		}
 	}, []);
 
 	if (token) {
-       return <>{children}</>
+		return <>{children}</>;
 	} else {
-        return <></>
-    }
-
+		return <></>;
+	}
 };
 
 export default Admin;
