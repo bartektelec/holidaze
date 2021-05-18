@@ -31,6 +31,7 @@ module.exports = {
 			textColor: ['disabled'],
 			cursor: ['disabled'],
 			padding: ['hover'],
+			filter: ['hover'],
 		},
 	},
 	plugins: [],

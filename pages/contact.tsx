@@ -39,7 +39,7 @@ const Contact: React.FC<ContactProps> = () => {
 				<Navigation dark />
 			</header>
 			<Searchbar />
-			<main className="container mx-auto flex-1 flex flex-col">
+			<main className="container mx-auto flex-1 flex flex-col px-4">
 				<h1 className="mt-14 font-bold">Contact</h1>
 				<p>If you have any concerns fill out the form below to contact us.</p>
 				<form

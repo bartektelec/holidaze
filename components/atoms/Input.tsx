@@ -4,7 +4,7 @@ export interface InputProps
 	extends React.InputHTMLAttributes<HTMLInputElement> {
 	id: string;
 	label: string;
-	value?: string;
+	value?: string | number;
 	placeholder?: string;
 	onChange?: React.ChangeEventHandler<HTMLInputElement>;
 	onClick?: React.MouseEventHandler<HTMLDivElement>;

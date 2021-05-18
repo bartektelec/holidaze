@@ -58,11 +58,9 @@ const Card: React.FC<CardProps> = ({ hotel, editable }) => {
 			{editable && (
 				<div className="flex flex-col gap-2">
 					<div className="flex justify-end gap-2">
-						<Link href={`/edit/${hotel.id}`}>
-							<Button sm secondary>
-								<Pencil width={16} height={16} />
-							</Button>
-						</Link>
+						<Button sm secondary>
+							<Pencil width={16} height={16} />
+						</Button>
 						<Button onClick={() => setShowConfirm(true)} sm secondary>
 							<Trash width={16} height={16} />
 						</Button>
