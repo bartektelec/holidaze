@@ -51,14 +51,15 @@ const Search: React.FC<SearchProps> = ({ hotels }) => {
 };
 
 export async function getServerSideProps(context: {
-	query: Record<'location' | 'guests' | 'date', string>;
+	query: Record<'location' | 'guests' | 'date' | 'type', string>;
 }) {
-	const { location, guests, date } = context.query;
+	const { location, guests, date, type } = context.query;
 	try {
 		const query = new URLSearchParams();
-		if(location) query.set('address_contains', location);
-		if(guests) query.set('adults_gte', guests);
-		const response = await request('hotels?'+query.toString());
+		if (location) query.set('address_contains', location);
+		if (guests) query.set('adults_gte', guests);
+		if (type) query.set('type', type);
+		const response = await request('hotels?' + query.toString());
 		const hotels: IResponseHotel[] = await response.data;
 		const filtered = hotels.filter((x) => {
 			if (!date) return true;

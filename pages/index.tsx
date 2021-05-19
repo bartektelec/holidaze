@@ -10,9 +10,9 @@ export default function Home() {
 			</Head>
 			<div>
 				<Main>
-					<div className="py-4 flex flex-col gap-4 text-gray-800">
+					<div className="p-4 py-10 flex flex-col gap-10 text-gray-800">
 						<h2 className="text-3xl font-semibold">Popular destinations</h2>
-						<div className="grid grid-cols-3 gap-4">
+						<div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
 							{['trondheim', 'oslo', 'bergen'].map((city) => (
 								<Link key={city} href={`/search?location=${city}`}>
 									<a className="filter grayscale hover:filter-none transition-all">
@@ -28,9 +28,21 @@ export default function Home() {
 							))}
 						</div>
 					</div>
-					<div className="h-2 w-1/2 bg-gray-200"></div>
-					<div className="py-4 flex flex-col gap-4">
+					<div className="ml-4 h-2 w-1/2 bg-gray-200"></div>
+					<div className="p-4 py-10 flex flex-col gap-10">
 						<h2 className="text-3xl font-semibold">Search by type</h2>
+						<div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+							{['hotel', 'hostel', 'apartment', 'home'].map((type) => (
+								<Link key={type} href={`/search?type=${type}`}>
+									<a className="flex items-center gap-4 hover:bg-gray-100 p-2 rounded">
+										<div className="h-20 w-20 bg-gray-500"></div>
+										<div className="capitalize text-lg font-semibold">
+											{type}
+										</div>
+									</a>
+								</Link>
+							))}
+						</div>
 					</div>
 				</Main>
 			</div>
