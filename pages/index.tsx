@@ -15,7 +15,7 @@ export default function Home() {
 						<div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
 							{['trondheim', 'oslo', 'bergen'].map((city) => (
 								<Link key={city} href={`/search?location=${city}`}>
-									<a className="filter grayscale hover:filter-none transition-all">
+									<a className="filter saturate-50 contrast-50 hover:filter-none transition-all">
 										<div
 											style={{ backgroundImage: `url(./assets/${city}.jpg)` }}
 											className="bg-cover bg-center h-56"
@@ -34,8 +34,11 @@ export default function Home() {
 						<div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
 							{['hotel', 'hostel', 'apartment', 'home'].map((type) => (
 								<Link key={type} href={`/search?type=${type}`}>
-									<a className="flex items-center gap-4 hover:bg-gray-100 p-2 rounded">
-										<div className="h-20 w-20 bg-gray-500"></div>
+									<a className="flex items-center gap-4 hover:bg-gray-100 p-2 rounded filter saturate-50 contrast-50 hover:filter-none transition-all">
+										<img
+											src={`./assets/${type}.jpg`}
+											className="h-20 w-20 bg-gray-500 object-cover"
+										></img>
 										<div className="capitalize text-lg font-semibold">
 											{type}
 										</div>
