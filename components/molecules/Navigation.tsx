@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Logo from '../atoms/Logo';
 import Button from '../atoms/Button';
+import Close from '../icons/Close';
+import Bars from '../icons/Bars';
 
 export interface NavigationProps {
 	className?: string;
@@ -12,6 +14,7 @@ export interface NavigationProps {
 const Navigation: React.FC<NavigationProps> = ({ dark, className = '' }) => {
 	const router = useRouter();
 	const [jwt, setJwt] = React.useState<string>('');
+	const [open, setOpen] = React.useState<boolean>(false);
 	React.useEffect(() => {
 		const token = localStorage.getItem('jwt') || '';
 		setJwt(token);
@@ -30,7 +33,19 @@ const Navigation: React.FC<NavigationProps> = ({ dark, className = '' }) => {
 		<nav className={classes.join(' ')}>
 			<div className="mx-auto container flex justify-between items-center">
 				<Logo dark={dark} />
-				<div className="flex gap-4 items-center">
+				<button className="sm:hidden" onClick={() => setOpen(!open)}>
+					{open ? (
+						<Close width={32} height={32} />
+					) : (
+						<Bars width={32} height={32} />
+					)}
+					<span className="sr-only">Trigger hamburger menu</span>
+				</button>
+				<div
+					className={`absolute sm:static left-0 transition-all bg-blue-50 w-full sm:w-auto p-4 sm:p-0 flex flex-col sm:flex-row gap-4 items-center ${
+						open ? 'top-14' : '-top-full'
+					}`}
+				>
 					{jwt ? (
 						<>
 							<Link href="/dashboard">

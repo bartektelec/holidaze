@@ -21,11 +21,14 @@ const initialEstablishment = {
 	children: 0,
 	featured: false,
 };
+
 const establishmentReducer = <T extends typeof initialEstablishment>(
 	state: T,
-	action: { type: keyof T; payload: T[keyof T] }
+	action: { type: keyof T | 'RESET'; payload: T[keyof T] }
 ): typeof initialEstablishment => {
-	if (action.type) {
+	if (action.type === 'RESET') {
+		return { ...initialEstablishment };
+	} else if (action.type) {
 		return { ...state, [action.type]: action.payload };
 	} else {
 		return { ...state };
@@ -41,6 +44,27 @@ const Dashboard: React.FC<DashboardProps> = () => {
 		establishmentReducer,
 		initialEstablishment
 	);
+
+	const submitHotel = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		setAlert('');
+
+		const postHotel = async () => {
+			try {
+				const response = await request.post('/hotels', form, {
+					headers: { Authorization: `Bearer ${token}` },
+				});
+				const { data } = response;
+				setPlaces([...places, data]);
+				dispatch({ type: 'RESET', payload: null });
+			} catch (error) {
+				setAlert(`<span class='text-red-500'>${error}</span>`);
+			}
+			setModalOpen(false);
+		};
+
+		postHotel();
+	};
 	React.useEffect(() => {
 		setAlert('');
 		const fetchPlaces = async () => {
@@ -69,11 +93,12 @@ const Dashboard: React.FC<DashboardProps> = () => {
 				<div className="fixed bg-opacity-50 bg-black top-0 left-0 right-0 bottom-0 z-10 flex items-center justify-center">
 					<div className="p-4 bg-white rounded-md shadow flex flex-col gap-4">
 						<h2 className="text-xl">New establishment</h2>
-						<form className="flex flex-col gap-4">
+						<form onSubmit={submitHotel} className="flex flex-col gap-4">
 							<Input
 								id="hotelName"
 								label="Name"
 								value={form.name}
+								required
 								onChange={(e) =>
 									dispatch({ type: 'name', payload: e.currentTarget.value })
 								}
@@ -81,7 +106,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
 							<Input
 								id="hotelPrice"
 								label="Price"
+								min={0}
 								type="number"
+								required
 								value={form.price}
 								onChange={(e) =>
 									dispatch({
@@ -93,6 +120,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
 							<Input
 								id="hotelAddress"
 								label="Address"
+								required
 								value={form.address}
 								onChange={(e) =>
 									dispatch({
@@ -109,7 +137,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
 									Description
 								</label>
 								<textarea
-									required
 									id="message"
 									className="resize-none w-full bg-transparent disabled:cursor-not-allowed focus:outline-none disabled:bg-transparent"
 								/>
@@ -133,8 +160,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
 							</label>
 							<Input
 								id="bathrooms"
+								required
 								label="Bathrooms"
 								value={form.bathrooms}
+								type="number"
 								onChange={(e) =>
 									dispatch({
 										type: 'bathrooms',
@@ -146,7 +175,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
 								<Input
 									id="bedrooms"
 									label="Bedrooms"
+									required
+									min={0}
 									value={form.bedrooms}
+									type="number"
 									onChange={(e) =>
 										dispatch({
 											type: 'bedrooms',
@@ -157,6 +189,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
 								<Input
 									id="beds"
 									label="Beds"
+									required
+									min={0}
+									type="number"
 									value={form.beds}
 									onChange={(e) =>
 										dispatch({
@@ -170,6 +205,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
 								<Input
 									id="adults"
 									label="Adults"
+									required
+									min={0}
+									type="number"
 									value={form.adults}
 									onChange={(e) =>
 										dispatch({
@@ -181,6 +219,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
 								<Input
 									id="children"
 									label="Children"
+									type="number"
+									min={0}
 									value={form.children}
 									onChange={(e) =>
 										dispatch({

@@ -36,9 +36,11 @@ const Inbox: React.FC<InboxProps> = () => {
 								unread)
 							</div>
 							{data.map((message, idx) => (
-								<div className="border-b-2 border-gray-200 ">
+								<div key={message.id} className="border-b-2 border-gray-200 ">
 									<button
-										onClick={() => setExpanded(idx)}
+										onClick={() =>
+											expanded === idx ? setExpanded(-1) : setExpanded(idx)
+										}
 										className={`w-full py-4 px-3 hover:bg-gray-100 text-sm flex items-center gap-4 ${
 											message.seen ? 'text-gray-600' : 'text-gray-900'
 										}`}
@@ -52,9 +54,17 @@ const Inbox: React.FC<InboxProps> = () => {
 										{message.author} - {message.title}
 									</button>
 									{expanded === idx && (
-										<div className="px-6 py-4">
+										<div className="px-6 py-2 flex flex-col items-start gap-2">
+											<p>{new Date(message.created_at).toLocaleDateString()}</p>
+											<a
+												className="text-blue-600 border-b hover:bg-blue-100 rounded px-1"
+												href={`mailto:${message.email}`}
+											>
+												{message.email}
+											</a>
 											<h2 className="text-2xl">{message.author}:</h2>
 											<p>{message.message}</p>
+											<div></div>
 										</div>
 									)}
 								</div>

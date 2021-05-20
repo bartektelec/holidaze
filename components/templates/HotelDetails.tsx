@@ -89,23 +89,27 @@ const HotelDetails: React.FC<HotelDetailsProps> = ({ hotel }) => {
 			<h1 className="text-3xl font-bold">{hotel.name}</h1>
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-32">
 				<div className="flex flex-col gap-8">
-					<img
-						className="rounded-md shadow-lg"
-						src={hotel.images[currentImage].url}
-						alt={hotel.images[currentImage].alternativeText}
-					/>
-					<div className="flex flex-wrap gap-4 w-full">
-						{hotel.images.length > 1 &&
-							hotel.images.map((image, idx) => (
-								<img
-									key={image.id}
-									className="cursor-pointer rounded-md shadow-sm opacity-50 hover:opacity-100 w-32"
-									onClick={() => setCurrentImage(idx)}
-									src={image.formats.thumbnail.url}
-									alt={image.alternativeText}
-								/>
-							))}
-					</div>
+					{hotel.images.length ? (
+						<>
+							<img
+								className="rounded-md shadow-lg"
+								src={hotel.images[currentImage].url}
+								alt={hotel.images[currentImage].alternativeText}
+							/>
+							<div className="flex flex-wrap gap-4 w-full">
+								{hotel.images.length > 1 &&
+									hotel.images.map((image, idx) => (
+										<img
+											key={image.id}
+											className="cursor-pointer rounded-md shadow-sm opacity-50 hover:opacity-100 w-32"
+											onClick={() => setCurrentImage(idx)}
+											src={image.formats.thumbnail.url}
+											alt={image.alternativeText}
+										/>
+									))}
+							</div>
+						</>
+					) : null}
 				</div>
 				<div className="flex flex-col gap-4">
 					<h2 className="text-3xl font-black">NOK {hotel.price} / night</h2>

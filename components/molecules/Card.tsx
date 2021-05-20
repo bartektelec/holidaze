@@ -23,11 +23,15 @@ const Card: React.FC<CardProps> = ({ hotel, editable }) => {
 			<Link href={`/place/${hotel.id}`}>
 				<a className="flex-col gap-1 inline-flex  hover:text-blue-800">
 					<div className="relative ">
-						<img
-							className="min-w-48 w-full h-48 filter contrast-75 object-cover rounded-md border-2 border-gray-300"
-							src={hotel.images[imgIdx].formats.thumbnail.url}
-							alt={hotel.images[imgIdx].alternativeText}
-						/>
+						{hotel.images.length ? (
+							<img
+								className="min-w-48 w-full h-48 filter contrast-75 object-cover rounded-md border-2 border-gray-300"
+								src={hotel.images[imgIdx].formats.thumbnail.url}
+								alt={hotel.images[imgIdx].alternativeText}
+							/>
+						) : (
+							<div className="min-w-48 w-full h-48 bg-gray-500 rounded-md border-2 border-gray-300" />
+						)}
 						<div className="absolute py-1 px-2 shadow-md top-2 left-2 bg-white rounded-md flex items-center gap-3">
 							<Star width={12} height={12} />
 							<p className="text-sm">{hotel.rating}</p>

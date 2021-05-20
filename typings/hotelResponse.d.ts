@@ -48,7 +48,7 @@ interface IResponseBooking {
 	arrival: Date;
 	departure: Date;
 	information: string;
-	hotel: number;
+	hotel: IResponseHotel;
 	customer: string;
 	phone: string;
 	confirmed: boolean;
