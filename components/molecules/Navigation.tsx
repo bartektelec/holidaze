@@ -28,6 +28,7 @@ const Navigation: React.FC<NavigationProps> = ({ dark, className = '' }) => {
 
 	const classes = [className, 'p-4'];
 	if (dark) classes.push('bg-blue-50');
+	if (!dark) classes.push('bg-gray-500 sm:bg-transparent');
 
 	return (
 		<nav className={classes.join(' ')}>
@@ -35,14 +36,16 @@ const Navigation: React.FC<NavigationProps> = ({ dark, className = '' }) => {
 				<Logo dark={dark} />
 				<button className="sm:hidden" onClick={() => setOpen(!open)}>
 					{open ? (
-						<Close width={32} height={32} />
+						<Close width={32} height={32} fill={dark ? 'black' : 'white'} />
 					) : (
-						<Bars width={32} height={32} />
+						<Bars width={32} height={32} fill={dark ? 'black' : 'white'} />
 					)}
 					<span className="sr-only">Trigger hamburger menu</span>
 				</button>
 				<div
-					className={`absolute sm:static left-0 transition-all bg-blue-50 w-full sm:w-auto p-4 sm:p-0 flex flex-col sm:flex-row gap-4 items-center ${
+					className={`absolute sm:static left-0 transition-all ${
+						dark ? 'bg-blue-50' : 'bg-gray-500 text-gray-100'
+					} sm:bg-transparent sm:text-black w-full sm:w-auto p-4 sm:p-0 flex flex-col sm:flex-row gap-4 items-center ${
 						open ? 'top-14' : '-top-full'
 					}`}
 				>
