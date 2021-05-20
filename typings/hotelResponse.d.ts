@@ -45,10 +45,10 @@ interface IResponseImage {
 
 interface IResponseBooking {
 	id: number;
-	arrival: Date;
-	departure: Date;
+	arrival: string;
+	departure: string;
 	information: string;
-	hotel: IResponseHotel;
+	hotel: Partial<IResponseHotel>;
 	customer: string;
 	phone: string;
 	confirmed: boolean;

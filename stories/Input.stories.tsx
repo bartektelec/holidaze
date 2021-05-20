@@ -26,7 +26,7 @@ export default {
 	},
 } as Meta;
 
-const Template: Story = (args) => <Input id="test" {...args} />;
+const Template: Story = (args) => <Input id="test" label="Testing" {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
