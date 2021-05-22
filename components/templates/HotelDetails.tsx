@@ -92,7 +92,7 @@ const HotelDetails: React.FC<HotelDetailsProps> = ({ hotel }) => {
 					{hotel.images.length ? (
 						<>
 							<img
-								className="rounded-md shadow-lg"
+								className="rounded-md shadow-lg h-96 object-cover"
 								src={hotel.images[currentImage].url}
 								alt={hotel.images[currentImage].alternativeText}
 							/>
@@ -101,7 +101,7 @@ const HotelDetails: React.FC<HotelDetailsProps> = ({ hotel }) => {
 									hotel.images.map((image, idx) => (
 										<img
 											key={image.id}
-											className="cursor-pointer rounded-md shadow-sm opacity-50 hover:opacity-100 w-32"
+											className="cursor-pointer rounded-md shadow-sm opacity-50 hover:opacity-100 w-32 h-32 object-cover"
 											onClick={() => setCurrentImage(idx)}
 											src={image.formats.thumbnail.url}
 											alt={image.alternativeText}
