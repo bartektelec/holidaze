@@ -14,21 +14,11 @@ export interface SearchformProps {}
 
 const Searchform: React.FC<SearchformProps> = () => {
 	const router = useRouter();
-	const [hotels, setHotels] = React.useState<Array<IResponseHotel>>([]);
 	const [location, setLocation] = React.useState<string>('');
 	const [guests, setGuests] = React.useState<string>('');
 	const [date, setDate] = React.useState<string>('');
 
 	React.useEffect(() => {
-		const getHotels = async () => {
-			try {
-				const response = await request.get('hotels/');
-				const { data } = await response;
-				setHotels(data);
-			} catch (error) {
-				console.warn('Couldnt fetch hotels');
-			}
-		};
 		const setSearchValues = () => {
 			const { location, date, guests } = router.query;
 			const [l, d, g] = [location, date, guests].map((x) => {
@@ -40,8 +30,6 @@ const Searchform: React.FC<SearchformProps> = () => {
 			setDate(d);
 			setGuests(g);
 		};
-
-		getHotels();
 		setSearchValues();
 	}, [router]);
 	return (
@@ -86,23 +74,17 @@ const Searchform: React.FC<SearchformProps> = () => {
 					<Button lg>Search</Button>
 				</a>
 			</Link>
-			{hotels.length ? (
-				<>
-					<p>or search for a hotel name</p>
-					<Typeahead
-						className="w-full"
-						items={hotels}
-						onSelect={(v: IResponseHotel) => {
-							router.push(`/place/${v.id}`);
-						}}
-						selectionLabel={(option: IResponseHotel) =>
-							`${option.name} - NOK${option.price}/night`
-						}
-					/>
-				</>
-			) : (
-				<Spinner />
-			)}
+
+			<p>or search for a hotel name</p>
+			<Typeahead
+				className="w-full"
+				onSelect={(v: IResponseHotel) => {
+					router.push(`/place/${v.id}`);
+				}}
+				selectionLabel={(option: IResponseHotel) =>
+					`${option.name} - NOK${option.price}/night`
+				}
+			/>
 		</>
 	);
 };
