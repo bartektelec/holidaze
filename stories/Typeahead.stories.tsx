@@ -19,11 +19,6 @@ export default {
 const Template: Story = (args) => (
 	<Typeahead
 		selectionLabel={(item: IResponseHotel) => item.name}
-		items={hotellist}
-		itemFilter={(q, item: IResponseHotel) => {
-			const reg = new RegExp(q.replace(' ', '|'), 'gi');
-			return reg.test(item.name);
-		}}
 		onSelect={(v: IResponseHotel) => console.log(v.id)}
 		{...args}
 	/>
