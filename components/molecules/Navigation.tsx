@@ -43,7 +43,7 @@ const Navigation: React.FC<NavigationProps> = ({ dark, className = '' }) => {
 					<span className="sr-only">Trigger hamburger menu</span>
 				</button>
 				<div
-					className={`absolute sm:static left-0 transition-all ${
+					className={`absolute sm:static z-50 left-0 transition-all ${
 						dark ? 'bg-blue-50' : 'bg-gray-500 text-gray-100'
 					} sm:bg-transparent sm:text-black w-full sm:w-auto p-4 sm:p-0 flex flex-col sm:flex-row gap-4 items-center ${
 						open ? 'top-14' : '-top-full'

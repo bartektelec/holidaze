@@ -75,7 +75,7 @@ const Searchbar: React.FC<SearchbarProps> = ({ className = '' }) => {
 				<Chevron className={chevronStyles} width={24} height={24} />
 			</div>
 			<div ref={formRef} className="mx-auto container">
-				<div className="py-4 pl-36 flex flex-col gap-4 max-w-prose">
+				<div className="py-4 px-4 sm:pl-36 flex flex-col gap-4 max-w-prose">
 					<h2>Search for a place</h2>
 					<form className="inline-flex flex-col items-start gap-2">
 						<SearchForm />
