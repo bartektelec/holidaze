@@ -37,6 +37,7 @@ export default function Home() {
 									<a className="flex items-center gap-4 hover:bg-gray-100 p-2 rounded filter saturate-50 contrast-50 hover:filter-none transition-all">
 										<img
 											src={`./assets/${type}.jpg`}
+											alt={type}
 											className="h-20 w-20 bg-gray-500 object-cover"
 										></img>
 										<div className="capitalize text-lg font-semibold">

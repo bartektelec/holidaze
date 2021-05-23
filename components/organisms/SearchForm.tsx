@@ -62,7 +62,6 @@ const Searchform: React.FC<SearchformProps> = () => {
 					IconComponent={Calendar}
 					value={date}
 					onChange={(e) => setDate(e.currentTarget.value)}
-					placeholder="Date"
 					type="date"
 					className="w-full "
 					id="DateSearch"
